@@ -5,7 +5,7 @@
 ```r
 library(metatopics)
 ```
-- The data **meta_counts** is a matrix containing the counts of the microbial in each individual mapped to a certain microbiome. The data **genus_2_phylum** is a data frame containing the annotation for the microbial in data meta_counts.
+- The data **meta_counts** is a matrix containing the read counts of the microbe in each individual sample mapped to a certain microbial reference. The data **genus_2_phylum** is a data frame containing the annotation for the microbe in data meta_counts.
 
 ```r
 dim(meta_counts)
@@ -40,7 +40,7 @@ head(genus_2_phylum)
 ## Acinetobacter     Acinetobacter Proteobacteria        1    gray46
 ```
 The column phylum has the corresponding phylum level annotation for each microbiome. The column colour is used for abundance.plot as an identification of the phylum level.
-This data has 39 samples and the data **lls** has the disease type annotation for each sample.
+In our example, the data has 39 samples and the data **lls** contains the disease type annotation information for each sample.
 
 ```r
 rownames(meta_counts)
@@ -63,7 +63,7 @@ table(lls)
 ##       16        9       14
 ```
 
-You can explore the abundance of the data:
+Users can explore the abundance distribution profile of the data:
 
 ```r
   meta_abundance <- micro.abundance(meta_counts,1)
@@ -73,7 +73,7 @@ You can explore the abundance of the data:
 
 ![](Readme_files/figure-html/unnamed-chunk-4-1.png) 
 
-- In order to use topic model, some odd samples and microbial need to be filtered. You can use the function **noise.removal** in package **BiotypeR** to do this.
+- In order to use topic model, some odd samples and microbe need to be filtered. Users can use the function **noise.removal** in package **BiotypeR** to do this.
 
 ```r
 library(BiotypeR)
@@ -98,8 +98,8 @@ dim(data.final)
 ```
 ## [1] 39 88
 ```
-The final data has 39 samples and 88 microbial.
-- After the final data formated, you can use cross validation to find the appropriate topic number for topic model. The function **selectK** could be used to do this and the function **plot_perplexity** could help to visualize the returned perplexity and likelihood.
+After the pre-processing, the final data contains 39 samples with 88 microbes annotations.
+- With the processed data in-hand, users can use cross validation to find the appropriate topic number for topic model. The function **selectK** could be used to select the appropriate topic number and the function **plot_perplexity** helps to visualize the returned perplexity and likelihood in the topic number selection.
 
 ```r
 library(slam)
@@ -113,13 +113,13 @@ library(topicmodels)
 	#not run: system.time((ctmK=selectK(dtm=dtm,kv=kv_num,SEED=seed_num,cross=fold_num,sp=sp,method='Gibbs',control=control)))
 	#not run: plot_perplexity(ctmK,kv_num)
 ```
-－ If you have the topic number, function **LDA** in package **topicmodels** can be used to build the model.Here is an example with the topic number 10.
+－ If users specify the topic number, function **LDA** in package **topicmodels** can be used to build the model. Here is an example with the topic number 10 specified.
 
 ```r
 Gibbs_model_example = LDA(dtm, k = 10, method = "Gibbs",
             control = list(seed = seed_num, burnin = 1000,thin = 100, iter = 1000))
 ```
-- The returned model is a S4 Object. The element **beta** in the model has the estimation of the probability of each microbiome in each topic.
+- The returned model is a S4 Object. The element **beta** in the model contains the estimation of the probability of each microbe in each topic.
 
 ```r
 dim(Gibbs_model_example@beta)
@@ -136,7 +136,7 @@ apply(exp(Gibbs_model_example@beta),1,sum)
 ```
 ##  [1] 1 1 1 1 1 1 1 1 1 1
 ```
-The function **plot_beta** is a visualization method to view this matrix.This plot is based on ggplot2. The parameter *prob* is a cutoff used to restrict the number of points on the plots. If a microbiome has a probability smaller than the cutoff in a topic, it will not be shown in this topic.
+The function **plot_beta** is a visualization way to view the matrix result. This plot is based on ggplot2. The parameter *prob* is a cutoff used to restrict the number of points on the plots. If a microbe has a probability smaller than the cutoff in a topic, it will be not shown in the visualizd result.
 
 ```r
 library(ggplot2)
@@ -148,7 +148,7 @@ plot_beta(Gibbs_model_example,prob=0.01)
 ```
 
 ![](Readme_files/figure-html/unnamed-chunk-9-1.png) 
-Another function **plot_network** uses package igraph to creat connections among microbial and topics. The meaningful microbial in each topic will be connected by a line, which could be identified by color.
+Another function **plot_network** uses package igraph to creat connections among different microbes and topics. The meaningful microbes in each topic will be connected by a line, which could be identified by a specific color.
 
 ```r
 plot_network(Gibbs_model_example,prob=0.05)
@@ -160,7 +160,7 @@ plot_network(Gibbs_model_example,prob=0.05)
 
 ![](Readme_files/figure-html/unnamed-chunk-10-1.png) 
 
-- The element **gamma** in the model has the estimation of the probability of each topic in each sample.This function will act as a visulization tool for this matrix. The parameter *prob* is a cutoff used to restrict the number of points on the plots. If a topic has a probability smaller than the cutoff in an individual, it will not be shown on this topic. 
+- The element **gamma** in the model containes the estimation of the probability of each topic in each sample. This function will act as a visulization representation of the result matrix. The parameter *prob* is a cutoff used to restrict the number of points on the plots. If a topic has a probability smaller than the cutoff in an individual, it will be not shown in the visualizd result. 
 
 ```r
 plot_gamma(Gibbs_model_example,lls,prob=0.05)
