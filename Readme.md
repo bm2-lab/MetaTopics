@@ -100,7 +100,7 @@ dim(data.final)
 ```
 ## [1] 39 88
 ```
-After the pre-processing, the final data contains 39 samples with 88 microbes taxons.
+After the pre-processing, the final data contains 39 samples with 88 microbe taxons.
 - With the processed data in-hand, users can use cross-validation to find the appropriate topic number for topic model. The function **selectK** could be used to select the appropriate topic number and the function **plot_perplexity** helps to visualize the returned perplexity and likelihood in the topic number selection.
 
 ```r
