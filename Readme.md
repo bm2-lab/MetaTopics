@@ -1,28 +1,18 @@
-<<<<<<< Updated upstream
-# MetaTopics
-- **MetaTopics** is the first R package to apply topic model for metagenomic data analysis by estimation of the microbial community and their connections. 
-- **MetaTopics** is developed to infer the microbial community structure across multiple samples based on a powerful statistical learning model, i.e., the topic model, originally derived in text mining community. Topic model is a computational framework which was originally designed to uncover the hidden thematic structure in document collections. The basic idea of this model is that it assumes that each topic consists of the highly correlated words and each document may contain several different topics with a certain probability distribution, and the distribution of such potential topics can be inferred by given the set of documents together with their word frequency representations. In particularly, a Bayesian based method called Latent Dirichlet Allocation (LDA) can be used in such inference. As for metagenomic analysis, each inferred topic could be viewed as a latent sub-community of the considered microbiome. 
-=======
 # Metatopics
 
 - **MetaTopics** is the first R package to apply topic model for metagenomic data analysis by estimation of the microbial community and their connections.
 
 - **MetaTopics** is developed to infer the microbial community structure across multiple samples based on a powerful statistical learning model, i.e., the topic model, originally derived in text mining community. Topic model is a computational framework which was originally designed to uncover the hidden thematic structure in document collections. The basic idea of this model is that it assumes that each topic consists of the highly correlated words and each document may contain several different topics with a certain probability distribution, and the distribution of such potential topics can be inferred by given the set of documents together with their word frequency representations. In particularly, a Bayesian based method called Latent Dirichlet Allocation (LDA) can be used in such inference. As for metagenomic analysis, each inferred topic could be viewed as a latent sub-community of the considered microbiome.
 
->>>>>>> Stashed changes
 - As an example, we presented our in-house oral microbial data from 39 human samples (collected by the Stomatological Hospital Affiliated to Tongji University, Shanghai,China). These sample data are 16s-rRNA-sequencing-based, which are targeted on a clinically classical oral diease, i.e. the oral lichen planus (OLP), a chronic oral disease without clear pathological mechanism and effective treatment. These samples can be grouped as the controls (**NOT_OLP**) and two OLP disease sub-types - **OLP_non-erosive** and **OLP_erosive**. Using **MetaTopics**, the relationship between topics and a specific disease is deciphered, which provides new clues to understand the pathological mechanism of OLP. The following examples present an comprehensive illustration of using **MetaTopics** in the analysis of these samples.
 
 
 ```r
 library(metatopics)
 ```
-<<<<<<< Updated upstream
-- The data **meta_counts** is a matrix containing the read counts of the microbe in each individual sample mapped to a certain microbial reference. The data **genus_2_phylum** is a data frame containing the annotation for the microbe in data meta_counts.
-=======
 
 - The data **meta_counts** is a matrix containing the read counts of the microbe in each individual sample mapped to a certain microbial reference. The data **genus_2_phylum** is a data frame containing the annotation for the microbe in data meta_counts
 
->>>>>>> Stashed changes
 
 ```r
 dim(meta_counts)
@@ -56,14 +46,9 @@ head(genus_2_phylum)
 ## Acidovorax           Acidovorax        Unknown        0 #E5D8BD
 ## Acinetobacter     Acinetobacter Proteobacteria        1 #CCEBC5
 ```
-<<<<<<< Updated upstream
-The column phylum has the corresponding phylum level annotation for each microbiome. The column colour is used for abundance.plot as an identification of the phylum level.
-In our example, the data has 39 samples and the data **lls** contains the disease type annotation information for each sample.
-=======
 
 The column phylum has the corresponding phylum level annotation for each microbiome. The column colour is used for abundance.plot as an identification of the phylum level. In our example, the data has 39 samples and the data **lls** contains the disease type annotation information for each sample.
 
->>>>>>> Stashed changes
 
 ```r
 rownames(meta_counts)
@@ -87,10 +72,7 @@ table(lls)
 ```
 
 Users can explore the abundance distribution profile of the data:
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 ```r
 meta_abundance <- micro.abundance(meta_counts,1)
@@ -101,10 +83,7 @@ abundance.plot(meta_abundance,classification = genus_2_phylum$phylum,col=genus_2
 ![](Readme_files/figure-html/unnamed-chunk-4-1.png) 
 
 - In order to use topic model, some odd samples and microbe need to be filtered. Users can use the function **noise.removal** in package **BiotypeR** to perform this procedure.
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 ```r
 library(BiotypeR)
@@ -129,16 +108,11 @@ dim(data.final)
 ```
 ## [1] 39 88
 ```
-<<<<<<< Updated upstream
-After the pre-processing, the final data contains 39 samples with 88 microbe taxons.
-- With the processed data in-hand, users can use cross-validation to find the appropriate topic number for topic model. The function **selectK** could be used to select the appropriate topic number and the function **plot_perplexity** helps to visualize the returned perplexity and likelihood in the topic number selection.
-=======
 
 After the pre-processing, the final data contains 39 samples with 88 microbe taxons.
 
 - With the processed data in-hand, users can use cross-validation to find the appropriate topic number for topic model. The function **selectK** could be used to select the appropriate topic number and the function **plot_perplexity** helps to visualize the returned perplexity and likelihood in the topic number selection.
 
->>>>>>> Stashed changes
 
 ```r
 library(slam)
@@ -152,25 +126,17 @@ control = list(seed = seed_num, burnin = 1000,thin = 100, iter = 1000)
 #not run: system.time((ctmK=selectK(dtm=dtm,kv=kv_num,SEED=seed_num,cross=fold_num,sp=sp,method='Gibbs',control=control)))
 #not run: plot_perplexity(ctmK,kv_num)
 ```
-<<<<<<< Updated upstream
-－ If users specify the topic number, function **LDA** in package **topicmodels** can be used to build the model. Here is an example with the topic number 10 specified.
-=======
 
 - If users specify the topic number, function **LDA** in package **topicmodels** can be used to build the model. Here is an example with the topic number 10 specified.
 
->>>>>>> Stashed changes
 
 ```r
 Gibbs_model_example = LDA(dtm, k = 10, method = "Gibbs",
             control = list(seed = seed_num, burnin = 1000,thin = 100, iter = 1000))
 ```
-<<<<<<< Updated upstream
-- The returned model is a S4 Object. The element **beta** in the model contains the estimation of the probability of each microbe in each topic.
-=======
 
 - The returned model is a S4 Object. The element **beta** in the model contains the estimation of the probability of each microbe in each topic.
 
->>>>>>> Stashed changes
 
 ```r
 dim(Gibbs_model_example@beta)
@@ -187,13 +153,9 @@ apply(exp(Gibbs_model_example@beta),1,sum)
 ```
 ##  [1] 1 1 1 1 1 1 1 1 1 1
 ```
-<<<<<<< Updated upstream
-The function **plot_beta** is a visualization way to view the matrix result. This plot is based on ggplot2. The parameter *prob* is a cutoff used to restrict the number of points on the plots. If a microbe has a probability smaller than the cutoff in a topic, it will not be shown in the visualizd result.
-=======
 
 The function **plot_beta** is a visualization way to view the matrix result. This plot is based on ggplot2. The parameter **prob** is a cutoff used to restrict the number of points on the plots. If a microbe has a probability smaller than the cutoff in a topic, it will not be shown in the visualizd result.
 
->>>>>>> Stashed changes
 
 ```r
 library(ggplot2)
@@ -205,25 +167,9 @@ plot_beta(Gibbs_model_example,prob=0.01)
 ```
 
 ![](Readme_files/figure-html/unnamed-chunk-9-1.png) 
-<<<<<<< Updated upstream
-Another function **plot_network** uses package igraph to creat connections among different microbes and topics. The meaningful microbes in each topic will be connected by a line, which could be identified by a specific color.
-
-```r
-plot_network(Gibbs_model_example,prob=0.05)
-```
-
-```
-## Loading required package: igraph
-```
-=======
->>>>>>> Stashed changes
 
 The element **gamma** in the model containes the estimation of the probability of each topic in each sample. This function will act as a visualization representation of the result matrix. The parameter prob is a cutoff used to restrict the number of points on the plots. If a topic has a probability smaller than the cutoff in an individual, it will not be shown in the visualizd result.
 
-<<<<<<< Updated upstream
-- The element **gamma** in the model containes the estimation of the probability of each topic in each sample. This function will act as a visualization representation of the result matrix. The parameter *prob* is a cutoff used to restrict the number of points on the plots. If a topic has a probability smaller than the cutoff in an individual, it will not be shown in the visualizd result. 
-=======
->>>>>>> Stashed changes
 
 ```r
 plot_gamma(Gibbs_model_example,lls,prob=0.05)
@@ -233,10 +179,6 @@ plot_gamma(Gibbs_model_example,lls,prob=0.05)
 
 In order to interpret the relationships between the sub-communities and disease, Quetelet Index is introduced to estimate the relative change of the observation/occurence frequency of a latent sub-community among all the samples compared to that among the samples with a certain disease statue. Function **qindex** is used to compute the Quelete Index from the topic model. Quelete Index quantitatively describes the degree of the influence of the specific topic on certain disease. Parameter **prob** is a probability cutoff used to identify a meaningful sub-community observation. For a certain individual, the topics with probability no smaller than prob will be thought as a meaningful observation in this individual.
 
-<<<<<<< Updated upstream
-- In order to interpret the relationships between the sub-communities and disease, Quetelet Index is introduced to estimate the relative change of the observation/occurence frequency of a latent sub-community among all the samples compared to that among the samples with a certain disease statue. Function **qindex** is used to compute the Quelete Index from the topic model. Quelete Index quantitatively describes the degree of the influence of the specific topic on certain disease. Parameter **prob** is a probability cutoff used to identify a meaningful sub-community observation. For a certain individual, the topics with probability no smaller than prob will be thought as a meaningful observation in this individual.
-=======
->>>>>>> Stashed changes
 
 ```r
 Q_values <- qindex(Gibbs_model_example,lls,0.05)
