@@ -7,5 +7,5 @@ Author: Todd Tao Qi <qitao052@126.com>
 Maintainer: Todd Tao Qi <qitao052@126.com>
 Description: This is a package for topic model analysis on microbe and visualisations
 License: GPL (>= 2)
-Suggests: dplyr, ggplot2, reshape, topicmodels, igraph, slam, BiotypeR
+Suggests: dplyr, ggplot2, reshape, topicmodels, LDAvis, slam, BiotypeR
 LazyData: yes

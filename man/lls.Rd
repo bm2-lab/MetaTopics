@@ -14,7 +14,7 @@ This is a vector containing the disease type for each individual.
  - attr(*, "names")= chr [1:39] "NO2" "NO6" "NO8" "NO9" ...
 }
 \details{
-This is a vector containing the disease type for each individual. Each individual is assigned to one of NOT_OLP, OLP_BW or OLP_CXML. 
+This is a vector containing the disease type for each individual. Each individual is assigned to one of NOT_OLP, OLP_no-erosive or OLP_erosive. 
 }
 \source{
 %%  ~~ reference to a publication or URL from which the data were obtained ~~
