@@ -1,4 +1,4 @@
-# Metatopics
+# MetaTopics
 
 - **MetaTopics** is the first R package to apply topic model for metagenomic data analysis by estimation of the microbial community and their connections.
 
