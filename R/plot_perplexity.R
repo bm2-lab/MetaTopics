@@ -10,7 +10,7 @@ function(model,k){
           ylab = "Perplexity", pch=1:10,col = 1, main = '')       
   legend("bottomright", legend = paste("fold", 1:5), col=1, pch=1:5)
   t_perplex = t(model$perplex)
-  colnames(t(model$perplex))=NULL
+  colnames(t_perplex)=NULL
   boxplot(t_perplex,xlab='',ylab='Box Distribution of Perplexity',las=2)
   #--------------------------------------------------------------------------
   plot(k,m_log,type='l',xlab='',ylab='Mean of loglik')
@@ -19,6 +19,6 @@ function(model,k){
           ylab = "loglik", pch=1:10,col = 1, main = '')       
   legend("bottomright", legend = paste("fold", 1:5), col=1, pch=1:5)
   t_perplex = t(model$loglik)
-  colnames(t(model$loglik))=NULL
-  boxplot(t(model$loglik),xlab='',ylab='Box Distribution of loglik',las=2)  
+  colnames(t_perplex)=NULL
+  boxplot(t_perplex,xlab='',ylab='Box Distribution of loglik',las=2)  
 }
