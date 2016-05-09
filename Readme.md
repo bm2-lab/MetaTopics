@@ -8,6 +8,9 @@
 
 
 ```r
+Install : you can install the metatopics package from GitHub using devtools package.
+require(devtools)
+install_github("metatopics","bm2-lab/MetaTopics")
 library(metatopics)
 ```
 
@@ -177,7 +180,7 @@ plot_gamma(Gibbs_model_example,lls,prob=0.05)
 
 ![](Readme_files/figure-html/unnamed-chunk-10-1.png) 
 
-In order to interpret the relationships between the sub-communities and disease, Quetelet Index is introduced to estimate the relative change of the observation/occurence frequency of a latent sub-community among all the samples compared to that among the samples with a certain disease statue. Function **qindex** is used to compute the Quelete Index from the topic model. Quelete Index quantitatively describes the degree of the influence of the specific topic on certain disease. Parameter **prob** is a probability cutoff used to identify a meaningful sub-community observation. For a certain individual, the topics with probability no smaller than prob will be thought as a meaningful observation in this individual.
+In order to interpret the relationships between the sub-communities and disease, Quetelet Index is introduced to estimate the relative change of the observation/occurence frequency of a latent sub-community among all the samples compared to that among the samples with a certain disease status. Function **qindex** is used to compute the Quelete Index from the topic model. Quelete Index quantitatively describes the degree of the influence of the specific topic on certain disease. Parameter **prob** is a probability cutoff used to identify a meaningful sub-community observation. For a certain individual, the topics with probability no smaller than prob will be thought as a meaningful observation in this individual.
 
 
 ```r
