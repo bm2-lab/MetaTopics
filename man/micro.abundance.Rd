@@ -2,7 +2,7 @@
 \alias{micro.abundance}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Microbiome Aabundance
+Microbiome Abundance
 }
 \description{
 This function is used to convert the count data to abundance percentage of the microbial in each individual
